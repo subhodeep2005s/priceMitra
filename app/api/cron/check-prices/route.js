@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { scrapeProduct } from "@/lib/firecrawl";
@@ -78,6 +79,13 @@ export async function POST(request) {
                 oldPrice,
                 newPrice
               );
+              console.log("Email result:", emailResult);
+              console.log({
+                productId: product.id,
+                oldPrice,
+                newPrice,
+                condition: newPrice < oldPrice,
+              });
 
               if (emailResult.success) {
                 results.alertsSent++;
